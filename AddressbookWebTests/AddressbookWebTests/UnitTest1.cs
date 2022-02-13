@@ -1,18 +1,14 @@
 using NUnit.Framework;
 
-namespace WebAddressbookTests
+namespace AddressbookWebTests
 {
     public class Tests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
 
         [Test]
-        public void Test1()
+        public void SquaresTest()
         {
-            Assert.Pass();
+
         }
     }
 }
