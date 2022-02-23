@@ -16,16 +16,18 @@ namespace AddressbookWebTests
         [Test]
         public void ContactCreationTest()
         {
-            navigationHelper.GoToHomePage();
-            loginHelper.Login(new AccountData("admin", "secret"));
-            GoToContactCrationPage();
+            app.Navigator.GoToHomePage();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Contacts.GoToContactCrationPage();
 
             ContactData contact = new ContactData("UserFirstName", "UserLastName");
             contact.Email = "beautifullemail@gmail.com";
-            FillContactForm(contact);
+            app.Contacts.FillContactForm(contact);
 
-            SubmitContactCreation();
-            ReturnToHomePageAndLogout();
+            app.Contacts.SubmitContactCreation();
+            app.Contacts.ReturnToHomePage();
+
+            app.Auth.Logout();
         }
     }
 }

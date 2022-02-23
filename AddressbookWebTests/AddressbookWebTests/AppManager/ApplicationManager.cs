@@ -17,6 +17,7 @@ namespace AddressbookWebTests
         protected LoginHelper loginHelper;
         protected NavigationHelper navigationHelper;
         protected GroupHelper groupHelper;
+        protected ContactHelper contactHelper;
 
         public ApplicationManager()
         {
@@ -26,6 +27,7 @@ namespace AddressbookWebTests
             this.loginHelper = new LoginHelper(driver);
             this.navigationHelper = new NavigationHelper(driver, baseURL);
             this.groupHelper = new GroupHelper(driver);
+            this.contactHelper = new ContactHelper(driver);
         }
 
         public void Stop()
@@ -61,6 +63,14 @@ namespace AddressbookWebTests
             get
             {
                 return groupHelper;
+            }
+        }
+
+        public ContactHelper Contacts
+        {
+            get
+            {
+                return contactHelper;
             }
         }
     }

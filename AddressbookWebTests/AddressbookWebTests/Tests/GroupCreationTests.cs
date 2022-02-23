@@ -24,6 +24,8 @@ namespace AddressbookWebTests
 
             app.Groups.SubmitGroupCreation();
             app.Groups.ReturnToGroupsPage();
+
+            app.Auth.Logout();
         }
     }
 }
