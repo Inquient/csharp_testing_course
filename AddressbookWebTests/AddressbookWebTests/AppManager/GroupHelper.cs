@@ -30,13 +30,37 @@ namespace AddressbookWebTests
             return this;
         }
 
+        public GroupHelper Modify(int index, GroupData newGroup)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(index);
+            InitGroupModification();
+            FillGroupForm(newGroup);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+
+            return this;
+        }
+
         public GroupHelper Remove(int index)
         {
             manager.Navigator.GoToGroupsPage();
-            SelectGroup(1);
+            SelectGroup(index);
             RemoveGroup();
             ReturnToGroupsPage();
 
+            return this;
+        }
+
+        public GroupHelper InitGroupModification()
+        {
+            driver.FindElement(By.Name("edit")).Click();
+            return this;
+        }
+
+        public GroupHelper SubmitGroupModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
             return this;
         }
 

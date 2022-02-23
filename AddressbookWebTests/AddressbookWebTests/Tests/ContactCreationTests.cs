@@ -12,22 +12,31 @@ namespace AddressbookWebTests
     [TestFixture]
     public class ContactCreationTests : TestBase
     {
-
         [Test]
         public void ContactCreationTest()
         {
-            app.Navigator.GoToHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
-            app.Contacts.GoToContactCrationPage();
+            ContactData contact = new ContactData("BaseUserFirstName", "BaseUserLastName");
+            contact.Email = "baseemail@gmail.com";
 
-            ContactData contact = new ContactData("UserFirstName", "UserLastName");
-            contact.Email = "beautifullemail@gmail.com";
-            app.Contacts.FillContactForm(contact);
+            app.Contacts.Create(contact);
+        }
 
-            app.Contacts.SubmitContactCreation();
-            app.Contacts.ReturnToHomePage();
+        [Test]
+        public void ContactWithAdditionalFieldsCreationTest()
+        {
+            ContactData contact = new ContactData("ExtendedUserFirstName", "ExtendedUserLastName");
+            contact.Email = "extendedemail@gmail.com";
 
-            app.Auth.Logout();
+            app.Contacts.CreateContactWithAdditionalFields(contact);
+        }
+
+        [Test]
+        public void EmptyContactCreationTest()
+        {
+            ContactData contact = new ContactData("", "");
+            contact.Email = "";
+
+            app.Contacts.Create(contact);
         }
     }
 }
