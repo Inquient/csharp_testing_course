@@ -106,12 +106,9 @@ namespace AddressbookWebTests
         public ContactHelper FillContactForm(ContactData contact)
         {
             // Fill fields from contact class
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.FirstName);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
-            driver.FindElement(By.Name("email")).Clear();
-            driver.FindElement(By.Name("email")).SendKeys(contact.Email);
+            Type(By.Name("firstname"), contact.FirstName);
+            Type(By.Name("lastname"), contact.LastName);
+            Type(By.Name("email"), contact.Email);
 
             return this;
         }
