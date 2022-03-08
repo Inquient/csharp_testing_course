@@ -33,6 +33,12 @@ namespace AddressbookWebTests
         public GroupHelper Modify(int index, GroupData newGroup)
         {
             manager.Navigator.GoToGroupsPage();
+
+            if (!DoesAnyGroupExist())
+            {
+                Create(new GroupData("groupToModify"));
+            }
+
             SelectGroup(index);
             InitGroupModification();
             FillGroupForm(newGroup);
@@ -45,11 +51,22 @@ namespace AddressbookWebTests
         public GroupHelper Remove(int index)
         {
             manager.Navigator.GoToGroupsPage();
+
+            if (!DoesAnyGroupExist())
+            {
+                Create(new GroupData("groupToDelete"));
+            }
+
             SelectGroup(index);
             RemoveGroup();
             ReturnToGroupsPage();
 
             return this;
+        }
+
+        public bool DoesAnyGroupExist()
+        {
+            return IsElementPresent(By.ClassName("group"));
         }
 
         public GroupHelper InitGroupModification()

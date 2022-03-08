@@ -36,6 +36,11 @@ namespace AddressbookWebTests
 
         public ContactHelper Modify(ContactData newData)
         {
+            if (!DoesAnyContactExist())
+            {
+                Create(new ContactData("contactToModifyFirstName", "contactToModifyLastName"));
+            }
+
             InitContactModification();
             FillContactForm(newData);
             SubmitContactModification();
@@ -46,6 +51,11 @@ namespace AddressbookWebTests
 
         public ContactHelper Remove(int index)
         {
+            if (!DoesAnyContactExist())
+            {
+                Create(new ContactData("contactToRemoveFirstName", "contactToRemoveLastName"));
+            }
+
             SelectContact(index);
             RemoveContact();
 
@@ -54,10 +64,20 @@ namespace AddressbookWebTests
 
         public ContactHelper RemoveAll()
         {
+            if (!DoesAnyContactExist())
+            {
+                Create(new ContactData("contactToRemoveFirstName", "contactToRemoveLastName"));
+            }
+
             SelectAllContacts();
             RemoveContact();
 
             return this;
+        }
+
+        public bool DoesAnyContactExist()
+        {
+            return driver.FindElement(By.Id("search_count")).Text != "0";
         }
 
         public ContactHelper RemoveContact()
