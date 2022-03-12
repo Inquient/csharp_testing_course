@@ -13,12 +13,16 @@ namespace AddressbookWebTests
         [Test]
         public void ContactRemovalTest()
         {
+            app.Contacts.CreateContactIfDoesNotExists();
+
             app.Contacts.Remove(1);
         }
 
         [Test]
         public void AllContactsRemovalTest()
         {
+            app.Contacts.CreateContactIfDoesNotExists();
+
             app.Contacts.RemoveAll();
         }
     }

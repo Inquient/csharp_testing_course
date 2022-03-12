@@ -30,14 +30,17 @@ namespace AddressbookWebTests
             return this;
         }
 
+        public void CreateGroupIfDoesNotExists(string groupName = "groupToRemove")
+        {
+            if (!DoesAnyGroupExist())
+            {
+                Create(new GroupData(groupName));
+            }
+        }
+
         public GroupHelper Modify(int index, GroupData newGroup)
         {
             manager.Navigator.GoToGroupsPage();
-
-            if (!DoesAnyGroupExist())
-            {
-                Create(new GroupData("groupToModify"));
-            }
 
             SelectGroup(index);
             InitGroupModification();
@@ -51,11 +54,6 @@ namespace AddressbookWebTests
         public GroupHelper Remove(int index)
         {
             manager.Navigator.GoToGroupsPage();
-
-            if (!DoesAnyGroupExist())
-            {
-                Create(new GroupData("groupToDelete"));
-            }
 
             SelectGroup(index);
             RemoveGroup();

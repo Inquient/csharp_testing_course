@@ -34,13 +34,18 @@ namespace AddressbookWebTests
             return this;
         }
 
-        public ContactHelper Modify(ContactData newData)
+        public void CreateContactIfDoesNotExists(
+            string contactFirstName = "contactToRemoveFirstName",
+            string contactLastName = "contactToRemoveLastName")
         {
             if (!DoesAnyContactExist())
             {
-                Create(new ContactData("contactToModifyFirstName", "contactToModifyLastName"));
+                Create(new ContactData(contactFirstName, contactLastName));
             }
+        }
 
+        public ContactHelper Modify(ContactData newData)
+        {
             InitContactModification();
             FillContactForm(newData);
             SubmitContactModification();
@@ -51,11 +56,6 @@ namespace AddressbookWebTests
 
         public ContactHelper Remove(int index)
         {
-            if (!DoesAnyContactExist())
-            {
-                Create(new ContactData("contactToRemoveFirstName", "contactToRemoveLastName"));
-            }
-
             SelectContact(index);
             RemoveContact();
 
@@ -64,11 +64,6 @@ namespace AddressbookWebTests
 
         public ContactHelper RemoveAll()
         {
-            if (!DoesAnyContactExist())
-            {
-                Create(new ContactData("contactToRemoveFirstName", "contactToRemoveLastName"));
-            }
-
             SelectAllContacts();
             RemoveContact();
 

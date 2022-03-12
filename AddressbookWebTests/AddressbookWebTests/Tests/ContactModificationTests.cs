@@ -13,6 +13,8 @@ namespace AddressbookWebTests
         [Test]
         public void ContactModificationTest()
         {
+            app.Contacts.CreateContactIfDoesNotExists("contactToModifyFirstName", "contactToModifyLastName");
+
             ContactData contact = new ContactData("ModifiedUserFirstName", "ModifiedBaseUserLastName");
             contact.Email = "Modifiedemail@gmail.com";
 

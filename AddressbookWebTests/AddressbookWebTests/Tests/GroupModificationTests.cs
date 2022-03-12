@@ -13,6 +13,8 @@ namespace AddressbookWebTests
         [Test]
         public void GroupModificationTest()
         {
+            app.Groups.CreateGroupIfDoesNotExists("groupToModify");
+
             GroupData group = new GroupData("ModifiedGroupName");
             group.Header = null;
             group.Footer = null;
