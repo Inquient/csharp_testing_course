@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AddressbookWebTests
 {
-    public class GroupData
+    public class GroupData : IEquatable<GroupData>
     {
         private string name;
         private string header = "";
@@ -58,6 +58,26 @@ namespace AddressbookWebTests
             {
                 this.footer = value;
             }
+        }
+
+        public bool Equals(GroupData other)
+        {
+            if (object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return Name == other.Name;
+        }
+
+        //Позволяет ускорить сравнение объектов
+        //Cначала проверяется HashCode и если они не совпадают, то идёт проверка через Equals
+        public int GetHashCode()
+        {
+            return Name.GetHashCode();
         }
     }
 }

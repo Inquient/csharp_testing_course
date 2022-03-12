@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -14,7 +15,15 @@ namespace AddressbookWebTests
         {
             app.Groups.CreateGroupIfDoesNotExists();
 
-            app.Groups.Remove(1);
+            List<GroupData> oldGroups = app.Groups.GetGroupsList();
+
+            app.Groups.Remove(0);
+
+            List<GroupData> groups = app.Groups.GetGroupsList();
+
+            oldGroups.RemoveAt(0);
+            Assert.AreEqual(oldGroups, groups);
+
         }
     }
 }

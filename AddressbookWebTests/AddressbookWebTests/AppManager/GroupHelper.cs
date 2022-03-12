@@ -110,7 +110,7 @@ namespace AddressbookWebTests
 
         public GroupHelper SelectGroup(int groupIndex)
         {
-            driver.FindElement(By.XPath($"//div[@id='content']/form/span[{groupIndex}]/input")).Click();
+            driver.FindElement(By.XPath($"//div[@id='content']/form/span[{groupIndex + 1}]/input")).Click();
             return this;
         }
 
