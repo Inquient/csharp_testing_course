@@ -23,7 +23,6 @@ namespace AddressbookWebTests
 
             oldGroups.RemoveAt(0);
             Assert.AreEqual(oldGroups, groups);
-
         }
     }
 }

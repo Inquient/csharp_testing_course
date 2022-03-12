@@ -22,7 +22,10 @@ namespace AddressbookWebTests
             app.Groups.Create(group);
 
             List<GroupData> groups = app.Groups.GetGroupsList();
-            Assert.AreEqual(oldGroups.Count + 1, groups.Count);
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            groups.Sort();
+            Assert.AreEqual(oldGroups, groups);
         }
 
         [Test]
@@ -37,7 +40,10 @@ namespace AddressbookWebTests
             app.Groups.Create(group);
 
             List<GroupData> groups = app.Groups.GetGroupsList();
-            Assert.AreEqual(oldGroups.Count + 1, groups.Count);
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            groups.Sort();
+            Assert.AreEqual(oldGroups, groups);
         }
 
         [Test]
@@ -52,7 +58,10 @@ namespace AddressbookWebTests
             app.Groups.Create(group);
 
             List<GroupData> groups = app.Groups.GetGroupsList();
-            Assert.AreEqual(oldGroups.Count + 1, groups.Count);
+            oldGroups.Sort();
+            groups.Sort();
+            Assert.AreEqual(oldGroups, groups);
+
         }
     }
 }

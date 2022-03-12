@@ -19,7 +19,15 @@ namespace AddressbookWebTests
             group.Header = null;
             group.Footer = null;
 
-            app.Groups.Modify(1, group);
+            List<GroupData> oldGroups = app.Groups.GetGroupsList();
+
+            app.Groups.Modify(0, group);
+
+            List<GroupData> groups = app.Groups.GetGroupsList();
+            oldGroups[0].Name = group.Name;
+            oldGroups.Sort();
+            groups.Sort();
+            Assert.AreEqual(oldGroups, groups);
         }
     }
 }

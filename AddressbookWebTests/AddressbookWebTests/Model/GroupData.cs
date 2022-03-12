@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AddressbookWebTests
 {
-    public class GroupData : IEquatable<GroupData>
+    public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         private string name;
         private string header = "";
@@ -60,6 +60,7 @@ namespace AddressbookWebTests
             }
         }
 
+        //Позволяет проверить, равны ли два объекта
         public bool Equals(GroupData other)
         {
             if (object.ReferenceEquals(other, null))
@@ -75,9 +76,25 @@ namespace AddressbookWebTests
 
         //Позволяет ускорить сравнение объектов
         //Cначала проверяется HashCode и если они не совпадают, то идёт проверка через Equals
-        public int GetHashCode()
+        public override int GetHashCode()
         {
             return Name.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return "name = " + Name;
+        }
+
+        //Позволяет отсортировать коллекцию объектов по определённому правилу
+        //Если
+        public int CompareTo(GroupData other)
+        {
+            if (object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            return Name.CompareTo(other.Name);
         }
     }
 }
