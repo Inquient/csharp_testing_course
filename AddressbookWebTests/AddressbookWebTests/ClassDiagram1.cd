@@ -3,20 +3,20 @@
   <Class Name="AddressbookWebTests.ApplicationManager" Collapsed="true">
     <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAEAABAAAAAAAAAAAAASABAAAgAAAIDCAABEAACA=</HashCode>
+      <HashCode>BAAAAEAABAAAAAAAAAAAAASABAAAgAAAADCAABEAACA=</HashCode>
       <FileName>AppManager\ApplicationManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="contactHelper" />
       <Field Name="loginHelper" />
-      <Field Name="groupHelper" />
       <Field Name="navigationHelper" />
+      <Field Name="groupHelper" />
+      <Field Name="contactHelper" />
     </ShowAsAssociation>
   </Class>
   <Class Name="AddressbookWebTests.TestBase">
     <Position X="3.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>Tests\TestBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -24,21 +24,21 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="AddressbookWebTests.GroupRemovalTests" Collapsed="true">
-    <Position X="1.5" Y="4" Width="1.5" />
+    <Position X="1.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tests\GroupRemovalTests.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AddressbookWebTests.GroupModificationTests" Collapsed="true">
-    <Position X="1.5" Y="3" Width="1.5" />
+    <Position X="1.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tests\GroupModificationTests.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AddressbookWebTests.GroupCreationTests" Collapsed="true">
-    <Position X="1.5" Y="2" Width="1.5" />
+    <Position X="1.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tests\GroupCreationTests.cs</FileName>
@@ -47,7 +47,7 @@
   <Class Name="AddressbookWebTests.HelperBase">
     <Position X="9.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAACEAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABCEAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>AppManager\HelperBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -57,21 +57,21 @@
   <Class Name="AddressbookWebTests.ContactHelper" Collapsed="true">
     <Position X="10.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAIAAACAAEAAAAAAAgRAAAAgAAAECgIAAYgAAAAAA=</HashCode>
+      <HashCode>AABAIAAACAAEAAAAAAAgRBAAAgAAAECgIAAYgACAAAA=</HashCode>
       <FileName>AppManager\ContactHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AddressbookWebTests.GroupHelper" Collapsed="true">
     <Position X="10.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACIACAAABAAAAAAAAABAAAQAABMEAAAAAAAABAAAA=</HashCode>
+      <HashCode>ACACIACAAABAAAAAAAAABAAAQAABMEAAAAAAACBAAAA=</HashCode>
       <FileName>AppManager\GroupHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AddressbookWebTests.LoginHelper" Collapsed="true">
     <Position X="10.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAASAAAAAAA=</HashCode>
       <FileName>AppManager\LoginHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -80,6 +80,20 @@
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKA=</HashCode>
       <FileName>AppManager\NavigationHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AddressbookWebTests.AuthTestBase" Collapsed="true">
+    <Position X="3.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\AuthTestBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AddressbookWebTests.LoginTests" Collapsed="true">
+    <Position X="1.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\LoginTests.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
