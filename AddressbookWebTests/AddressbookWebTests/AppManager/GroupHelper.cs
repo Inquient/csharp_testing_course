@@ -11,27 +11,31 @@ namespace AddressbookWebTests
 {
     public class GroupHelper : HelperBase
     {
-        public GroupHelper(ApplicationManager manager) : base(manager) { }
+        private List<GroupData> groupsCache = null;
 
-        public GroupHelper SubmitGroupCreation()
-        {
-            driver.FindElement(By.Name("submit")).Click();
-            return this;
-        }
+        public GroupHelper(ApplicationManager manager) : base(manager) { }
 
         public List<GroupData> GetGroupsList()
         {
-            List <GroupData> groups = new List<GroupData>();
-
-            manager.Navigator.GoToGroupsPage();
-
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); // Выбирает все элементы span с классом group
-            foreach(IWebElement element in elements)
+            if (groupsCache == null)
             {
-                groups.Add(new GroupData(element.Text));
-            }
+                groupsCache = new List<GroupData>();
 
-            return groups;
+                manager.Navigator.GoToGroupsPage();
+
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); // Выбирает все элементы span с классом group
+                foreach (IWebElement element in elements)
+                {
+                    groupsCache.Add(new GroupData(element.Text));
+                }
+            }    
+
+            return new List<GroupData>(groupsCache);
+        }
+
+        public int GetGroupsCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count;
         }
 
         public GroupHelper Create(GroupData group)
@@ -88,9 +92,17 @@ namespace AddressbookWebTests
             return this;
         }
 
+        public GroupHelper SubmitGroupCreation()
+        {
+            driver.FindElement(By.Name("submit")).Click();
+            groupsCache = null;
+            return this;
+        }
+
         public GroupHelper SubmitGroupModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            groupsCache = null;
             return this;
         }
 
@@ -117,6 +129,7 @@ namespace AddressbookWebTests
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
+            groupsCache = null;
             return this;
         }
 

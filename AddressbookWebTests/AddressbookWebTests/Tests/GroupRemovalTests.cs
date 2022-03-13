@@ -19,6 +19,8 @@ namespace AddressbookWebTests
 
             app.Groups.Remove(0);
 
+            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupsCount());
+
             List<GroupData> groups = app.Groups.GetGroupsList();
 
             oldGroups.RemoveAt(0);

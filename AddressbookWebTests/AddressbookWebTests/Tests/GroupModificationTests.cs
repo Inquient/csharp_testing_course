@@ -23,6 +23,8 @@ namespace AddressbookWebTests
 
             app.Groups.Modify(0, group);
 
+            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupsCount());
+
             List<GroupData> groups = app.Groups.GetGroupsList();
             oldGroups[0].Name = group.Name;
             oldGroups.Sort();
