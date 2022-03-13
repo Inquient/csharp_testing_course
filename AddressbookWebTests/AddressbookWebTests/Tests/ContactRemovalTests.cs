@@ -15,7 +15,14 @@ namespace AddressbookWebTests
         {
             app.Contacts.CreateContactIfDoesNotExists();
 
-            app.Contacts.Remove(1);
+            List<ContactData> oldContacts = app.Contacts.GetContactsList();
+
+            app.Contacts.Remove(0);
+
+            System.Threading.Thread.Sleep(1000);
+            List<ContactData> newContacts = app.Contacts.GetContactsList();
+            oldContacts.RemoveAt(0);
+            Assert.AreEqual(oldContacts, newContacts);
         }
 
         [Test]
@@ -24,6 +31,10 @@ namespace AddressbookWebTests
             app.Contacts.CreateContactIfDoesNotExists();
 
             app.Contacts.RemoveAll();
+
+            System.Threading.Thread.Sleep(1000);
+            List<ContactData> newContacts = app.Contacts.GetContactsList();
+            Assert.IsEmpty(newContacts);
         }
     }
 }

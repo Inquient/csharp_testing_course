@@ -44,6 +44,24 @@ namespace AddressbookWebTests
             }
         }
 
+        public List<ContactData> GetContactsList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+
+            manager.Navigator.GoToHomePage();
+
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry")); // Выбирает все элементы с именем entry
+            foreach (IWebElement element in elements)
+            {
+                var e = element.FindElements(By.CssSelector("td")); // Внутри элемента entry ищем все элементы td
+                var firstName = e[2].Text;
+                var lastName = e[1].Text;
+                contacts.Add(new ContactData(firstName, lastName));
+            }
+
+            return contacts;
+        }
+
         public ContactHelper Modify(ContactData newData)
         {
             InitContactModification();
@@ -84,7 +102,7 @@ namespace AddressbookWebTests
 
         public ContactHelper SelectContact(int contactIndex)
         {
-            driver.FindElement(By.XPath($"//*[@id='maintable']/tbody/tr/td[{contactIndex}]/input")).Click();
+            driver.FindElement(By.XPath($"//*[@id='maintable']/tbody/tr/td[{contactIndex + 1}]/input")).Click();
             return this;
         }
 

@@ -18,7 +18,16 @@ namespace AddressbookWebTests
             ContactData contact = new ContactData("ModifiedUserFirstName", "ModifiedBaseUserLastName");
             contact.Email = "Modifiedemail@gmail.com";
 
+            List<ContactData> oldContacts = app.Contacts.GetContactsList();
+
             app.Contacts.Modify(contact);
+
+            List<ContactData> newContacts = app.Contacts.GetContactsList();
+            oldContacts[0].FirstName = contact.FirstName;
+            oldContacts[0].LastName = contact.LastName;
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }
