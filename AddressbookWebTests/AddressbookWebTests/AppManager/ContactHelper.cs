@@ -76,6 +76,7 @@ namespace AddressbookWebTests
         {
             SelectContact(index);
             RemoveContact();
+            WaitForContactRemoved();
 
             return this;
         }
@@ -84,6 +85,7 @@ namespace AddressbookWebTests
         {
             SelectAllContacts();
             RemoveContact();
+            WaitForContactRemoved();
 
             return this;
         }
@@ -97,6 +99,15 @@ namespace AddressbookWebTests
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+        public ContactHelper WaitForContactRemoved()
+        {
+            do
+            {
+                System.Threading.Thread.Sleep(1000);
+            } while (driver.FindElement(By.CssSelector("div.msgbox")) == null);
             return this;
         }
 

@@ -19,7 +19,6 @@ namespace AddressbookWebTests
 
             app.Contacts.Remove(0);
 
-            System.Threading.Thread.Sleep(1000);
             List<ContactData> newContacts = app.Contacts.GetContactsList();
             oldContacts.RemoveAt(0);
             Assert.AreEqual(oldContacts, newContacts);
@@ -32,7 +31,6 @@ namespace AddressbookWebTests
 
             app.Contacts.RemoveAll();
 
-            System.Threading.Thread.Sleep(1000);
             List<ContactData> newContacts = app.Contacts.GetContactsList();
             Assert.IsEmpty(newContacts);
         }
