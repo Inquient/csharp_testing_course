@@ -23,8 +23,15 @@ namespace AddressbookWebTests
 
             List<GroupData> groups = app.Groups.GetGroupsList();
 
+            GroupData toBeRemoved = oldGroups[0];
             oldGroups.RemoveAt(0);
             Assert.AreEqual(oldGroups, groups);
+
+            // Проверка, что удалённой группы больше нет в списке
+            foreach(GroupData group in groups)
+            {
+                Assert.AreNotEqual(group.Id, toBeRemoved.Id);
+            }
         }
     }
 }
