@@ -19,6 +19,8 @@ namespace AddressbookWebTests
 
             app.Contacts.Remove(0);
 
+            Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactsCount());
+
             List<ContactData> newContacts = app.Contacts.GetContactsList();
             oldContacts.RemoveAt(0);
             Assert.AreEqual(oldContacts, newContacts);
@@ -30,6 +32,8 @@ namespace AddressbookWebTests
             app.Contacts.CreateContactIfDoesNotExists();
 
             app.Contacts.RemoveAll();
+
+            Assert.AreEqual(0, app.Contacts.GetContactsCount());
 
             List<ContactData> newContacts = app.Contacts.GetContactsList();
             Assert.IsEmpty(newContacts);

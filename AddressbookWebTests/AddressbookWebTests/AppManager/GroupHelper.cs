@@ -26,7 +26,6 @@ namespace AddressbookWebTests
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); // Выбирает все элементы span с классом group
                 foreach (IWebElement element in elements)
                 {
-
                     groupsCache.Add(new GroupData(element.Text)
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
