@@ -73,17 +73,17 @@ namespace AddressbookWebTests
             {
                 return true;
             }
-            return FirstName == other.FirstName && LastName == other.LastName;
+            return this.ToString() == other.ToString();
         }
 
         public override int GetHashCode()
         {
-            return (FirstName + LastName).GetHashCode();
+            return (this.ToString()).GetHashCode();
         }
 
         public override string ToString()
         {
-            return "FirstName = " + FirstName + " LastName = " + LastName;
+            return FirstName + "_" + LastName;
         }
 
         public int CompareTo(ContactData other)
@@ -92,7 +92,7 @@ namespace AddressbookWebTests
             {
                 return 1;
             }
-            return FirstName.CompareTo(other.FirstName);
+            return this.ToString().CompareTo(other.ToString());
         }
 
 
