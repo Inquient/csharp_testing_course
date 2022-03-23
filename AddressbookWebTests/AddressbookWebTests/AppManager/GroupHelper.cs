@@ -26,10 +26,26 @@ namespace AddressbookWebTests
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); // Выбирает все элементы span с классом group
                 foreach (IWebElement element in elements)
                 {
-                    groupsCache.Add(new GroupData(element.Text)
+                    groupsCache.Add(new GroupData(null)
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     });
+                }
+
+                string allGroupNames = driver.FindElement(By.CssSelector("div#content form")).Text;
+                
+                string[] parts = allGroupNames.Split('\n');
+                int shift = groupsCache.Count - parts.Length;
+                for (int i = 0; i < groupsCache.Count; i++)
+                {
+                    if (i < shift)
+                    {
+                        groupsCache[i].Name = "";
+                    }
+                    else
+                    {
+                        groupsCache[i].Name = parts[i - shift].Trim();
+                    }
                 }
             }
 
