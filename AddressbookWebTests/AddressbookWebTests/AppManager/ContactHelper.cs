@@ -156,6 +156,14 @@ namespace AddressbookWebTests
             return this;
         }
 
+        public ContactHelper ShowContactDetails(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
@@ -185,10 +193,10 @@ namespace AddressbookWebTests
             driver.FindElement(By.Name("middlename")).SendKeys("middleName");
             driver.FindElement(By.Name("nickname")).Clear();
             driver.FindElement(By.Name("nickname")).SendKeys("NickName");
-            driver.FindElement(By.Name("title")).Clear();
-            driver.FindElement(By.Name("title")).SendKeys("title");
             driver.FindElement(By.Name("company")).Clear();
             driver.FindElement(By.Name("company")).SendKeys("company");
+            driver.FindElement(By.Name("title")).Clear();
+            driver.FindElement(By.Name("title")).SendKeys("title");
             driver.FindElement(By.Name("address")).Clear();
             driver.FindElement(By.Name("address")).SendKeys("address");
             driver.FindElement(By.Name("home")).Clear();
@@ -205,29 +213,23 @@ namespace AddressbookWebTests
             driver.FindElement(By.Name("email3")).SendKeys("edc@cde.gov");
             driver.FindElement(By.Name("homepage")).Clear();
             driver.FindElement(By.Name("homepage")).SendKeys("www.nowhere.tk");
-            driver.FindElement(By.Name("bday")).Click();
-            new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText("10");
-            driver.FindElement(By.XPath("//option[@value='10']")).Click();
-            driver.FindElement(By.Name("bmonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("October");
-            driver.FindElement(By.XPath("//option[@value='October']")).Click();
-            driver.FindElement(By.Name("byear")).Click();
-            driver.FindElement(By.Name("byear")).Clear();
-            driver.FindElement(By.Name("byear")).SendKeys("1987");
-            driver.FindElement(By.Name("aday")).Click();
-            new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText("12");
-            driver.FindElement(By.XPath("//div[@id='content']/form/select[3]/option[14]")).Click();
-            driver.FindElement(By.Name("amonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText("August");
-            driver.FindElement(By.XPath("//div[@id='content']/form/select[4]/option[9]")).Click();
-            driver.FindElement(By.Name("ayear")).Clear();
-            driver.FindElement(By.Name("ayear")).SendKeys("2009");
-            driver.FindElement(By.Name("address2")).Clear();
-            driver.FindElement(By.Name("address2")).SendKeys("address2");
-            //driver.FindElement(By.Name("phone2")).Clear();
-            //driver.FindElement(By.Name("phone2")).SendKeys("asdffghhjj");
-            driver.FindElement(By.Name("notes")).Clear();
-            driver.FindElement(By.Name("notes")).SendKeys("what");
+            //driver.FindElement(By.Name("bday")).Click();
+            //new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText("10");
+            //driver.FindElement(By.XPath("//option[@value='10']")).Click();
+            //driver.FindElement(By.Name("bmonth")).Click();
+            //new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("October");
+            //driver.FindElement(By.XPath("//option[@value='October']")).Click();
+            //driver.FindElement(By.Name("byear")).Click();
+            //driver.FindElement(By.Name("byear")).Clear();
+            //driver.FindElement(By.Name("byear")).SendKeys("1987");
+            //driver.FindElement(By.Name("aday")).Click();
+            //new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText("12");
+            //driver.FindElement(By.XPath("//div[@id='content']/form/select[3]/option[14]")).Click();
+            //driver.FindElement(By.Name("amonth")).Click();
+            //new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText("August");
+            //driver.FindElement(By.XPath("//div[@id='content']/form/select[4]/option[9]")).Click();
+            //driver.FindElement(By.Name("ayear")).Clear();
+            //driver.FindElement(By.Name("ayear")).SendKeys("2009");
 
             return this;
         }
@@ -256,23 +258,51 @@ namespace AddressbookWebTests
             manager.Navigator.GoToHomePage();
             InitContactModification(index);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string nickName = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
+
             string email = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
 
             return new ContactData(firstName, lastName, email)
             {
+                MiddleName = middleName,
+                NickName = nickName,
+                Company = company,
+                Title = title,
                 Address = address,
                 MobilePhone = mobilePhone,
                 HomePhone = homePhone,
                 WorkPhone = workPhone,
+                Fax = fax,
                 Email2 = email2,
-                Email3 = email3
+                Email3 = email3,
+                HomePage = homepage
+            };
+        }
+
+        public ContactData GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            ShowContactDetails(index);
+
+            var rows = driver.FindElement(By.Id("content")).Text;
+
+            return new ContactData()
+            {
+                Details = rows
             };
         }
 

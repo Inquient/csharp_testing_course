@@ -11,6 +11,9 @@ namespace AddressbookWebTests
     {
         private string allPhones;
         private string allEmails;
+        private string details;
+
+        public ContactData() { }
 
         public ContactData(string firstName, string lastName)
         {
@@ -26,14 +29,22 @@ namespace AddressbookWebTests
         }
 
         public string FirstName { get; set; }
+        public string MiddleName { get; set; }
         public string LastName { get; set; }
+        public string NickName { get; set; }
+        public string Company { get; set; }
+        public string Title { get; set; }
         public string Address { get; set; }
         public string MobilePhone { get; set; }
         public string HomePhone { get; set; }
         public string WorkPhone { get; set; }
+        public string Fax { get; set; }
         public string Email { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
+        public string HomePage { get; set; }
+        public string Birthday { get; set; }
+        public string Anniversuary { get; set; }
 
         public string AllPhones
         {
@@ -70,6 +81,38 @@ namespace AddressbookWebTests
             set
             {
                 allEmails = value;
+            }
+        }
+
+        public string Details
+        {
+            get
+            {
+                if (details != null)
+                {
+                    return details;
+                }
+                else
+                {
+                    return FirstName + " " + MiddleName + " " + LastName + "\r\n"
+                        + NickName + "\r\n"
+                        + Title + "\r\n"
+                        + Company + "\r\n"
+                        + Address + "\r\n\r\n"
+                        + "H: " + HomePhone + "\r\n"
+                        + "M: " + MobilePhone + "\r\n"
+                        + "W: " + WorkPhone + "\r\n"
+                        + "F: " + Fax + "\r\n\r\n"
+                        + Email + "\r\n"
+                        + Email2 + "\r\n"
+                        + Email3 + "\r\n"
+                        + "Homepage:" + "\r\n"
+                        + HomePage;
+                }
+            }
+            set
+            {
+                details = value;
             }
         }
 
