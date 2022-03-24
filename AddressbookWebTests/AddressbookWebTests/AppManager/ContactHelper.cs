@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -270,6 +271,15 @@ namespace AddressbookWebTests
                 Email2 = email2,
                 Email3 = email3
             };
+        }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
         }
     }
 }
