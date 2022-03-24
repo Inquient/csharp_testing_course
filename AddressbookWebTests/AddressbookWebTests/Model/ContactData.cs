@@ -94,20 +94,21 @@ namespace AddressbookWebTests
                 }
                 else
                 {
-                    return FirstName + " " + MiddleName + " " + LastName + "\r\n"
-                        + NickName + "\r\n"
-                        + Title + "\r\n"
-                        + Company + "\r\n"
-                        + Address + "\r\n\r\n"
-                        + "H: " + HomePhone + "\r\n"
-                        + "M: " + MobilePhone + "\r\n"
-                        + "W: " + WorkPhone + "\r\n"
-                        + "F: " + Fax + "\r\n\r\n"
-                        + Email + "\r\n"
-                        + Email2 + "\r\n"
-                        + Email3 + "\r\n"
-                        + "Homepage:" + "\r\n"
-                        + HomePage;
+                    return Format(FirstName)
+                        + Format(MiddleName)
+                        + Format(LastName)
+                        + Format(NickName)
+                        + Format(Title)
+                        + Format(Company)
+                        + Format(Address)
+                        + Format(HomePhone)
+                        + Format(MobilePhone)
+                        + Format(WorkPhone)
+                        + Format(Fax)
+                        + Format(Email)
+                        + Format(Email2)
+                        + Format(Email3)
+                        + Format(HomePage);
                 }
             }
             set
@@ -123,6 +124,15 @@ namespace AddressbookWebTests
                 return "";
             }
             return Regex.Replace(phone, "[ \\-()]", "") + "\r\n";
+        }
+
+        private string Format(string s)
+        {
+            if (s == null || s == "")
+            {
+                return "";
+            }
+            return s + "\n";
         }
 
         public bool Equals(ContactData other)

@@ -298,11 +298,18 @@ namespace AddressbookWebTests
             manager.Navigator.GoToHomePage();
             ShowContactDetails(index);
 
-            var rows = driver.FindElement(By.Id("content")).Text;
+            string rows = driver.FindElement(By.Id("content")).Text;
+
+            string result = Regex
+                .Replace(rows, "\n[A-Za-z]+:", "")
+                .Replace("\r ", "\n")
+                .Replace("\r", "")
+                .Replace("\n\n", "\n")
+                .Replace(" ", "\n");
 
             return new ContactData()
             {
-                Details = rows
+                Details = result + "\n"
             };
         }
 
