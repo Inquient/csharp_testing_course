@@ -32,7 +32,10 @@ namespace AddressbookWebTests
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
 
             // assert
-            Assert.AreEqual(fromDetails.Details, fromForm.Details);
+            string actualDetails = fromDetails.Details;
+            string expectedDetails = fromForm.Details;
+
+            Assert.AreEqual(expectedDetails, actualDetails);
         }
     }
 }

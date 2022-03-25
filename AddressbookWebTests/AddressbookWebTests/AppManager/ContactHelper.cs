@@ -309,9 +309,14 @@ namespace AddressbookWebTests
                 .Replace("\n\n", "\n")
                 .Replace(" ", "\n");
 
+            if (result != "")
+            {
+                result += "\n";
+            }
+
             return new ContactData()
             {
-                Details = result + "\n"
+                Details = result
             };
         }
 
