@@ -39,6 +39,7 @@ namespace AddressbookWebTests
 
         public int GetContactsCount()
         {
+            manager.Navigator.GoToHomePage();
             return driver.FindElements(By.Name("entry")).Count;
         }
 
@@ -67,6 +68,7 @@ namespace AddressbookWebTests
             string contactFirstName = "contactToRemoveFirstName",
             string contactLastName = "contactToRemoveLastName")
         {
+            manager.Navigator.GoToHomePage();
             if (!DoesAnyContactExist())
             {
                 Create(new ContactData(contactFirstName, contactLastName));

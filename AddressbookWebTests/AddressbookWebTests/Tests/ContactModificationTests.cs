@@ -20,7 +20,7 @@ namespace AddressbookWebTests
 
             List<ContactData> oldContacts = app.Contacts.GetContactsList();
 
-            app.Contacts.Modify(contact, 1);
+            app.Contacts.Modify(contact, 0);
 
             Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactsCount());
 
