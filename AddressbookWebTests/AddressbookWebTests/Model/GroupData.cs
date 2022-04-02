@@ -52,7 +52,9 @@ namespace AddressbookWebTests
 
         public override string ToString()
         {
-            return "name = " + Name;
+            return "name = " + Name
+                + "\nheader = " + Header
+                + "\nfooter = " + Footer;
         }
 
         //Позволяет отсортировать коллекцию объектов по определённому правилу
