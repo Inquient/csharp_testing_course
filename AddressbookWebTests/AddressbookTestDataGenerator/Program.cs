@@ -17,11 +17,66 @@ namespace AddressbookTestDataGenerator
     {
         static void Main(string[] args)
         {
-            int testDataCount = Convert.ToInt32(args[0]);
+            string dataType = args[0];
+            int testDataCount = Convert.ToInt32(args[1]);
+            string fileName = args[2];
+            string format = args[2].Split('.')[1];
 
-            string fileName = args[1];
-            string format = args[2];
+            List<GroupData> groups = new List<GroupData>();
+            List<ContactData> contacts = new List<ContactData>();
 
+            if (dataType == "groups")
+            {
+                groups = GenerateRandomGroups(testDataCount);
+                if (format == "excel")
+                {
+                    WriteGroupsToExcelFile(groups, fileName);
+                }
+                else
+                {
+                    StreamWriter writer = new StreamWriter(fileName);
+                    if (format == "csv")
+                    {
+                        WriteGroupsToCsvFile(groups, writer);
+                    }
+                    else if (format == "xml")
+                    {
+                        WriteGroupsToXmlFile(groups, writer);
+                    }
+                    else if (format == "json")
+                    {
+                        WriteGroupsToJsonFile(groups, writer);
+                    }
+                    else
+                    {
+                        Console.Out.WriteLine("Unknown File Format");
+                    }
+
+                    writer.Close();
+                }
+            }
+            else if (dataType == "contacts")
+            {
+                contacts = GenerateRandomContacts(testDataCount);
+                StreamWriter writer = new StreamWriter(fileName);
+                if (format == "xml")
+                {
+                    WriteContactsToXmlFile(contacts, writer);
+                }
+                else if (format == "json")
+                {
+                    WriteContactsToJsonFile(contacts, writer);
+                }
+                else
+                {
+                    Console.Out.WriteLine("Unknown File Format");
+                }
+                writer.Close();
+            }
+        }
+
+        static List<GroupData> GenerateRandomGroups(int testDataCount)
+        {
             List<GroupData> groups = new List<GroupData>();
             for (int i = 0; i < testDataCount; i++)
             {
@@ -32,32 +87,26 @@ namespace AddressbookTestDataGenerator
                 });
             }
 
-            if (format == "excel")
-            {
-                WriteGroupsToExcelFile(groups, fileName);
-            }
-            else
-            {
-                StreamWriter writer = new StreamWriter(fileName);
-                if (format == "csv")
-                {
-                    WriteGroupsToCsvFile(groups, writer);
-                }
-                else if (format == "xml")
-                {
-                    WriteGroupsToXmlFile(groups, writer);
-                }
-                else if (format == "json")
-                {
-                    WriteGroupsToJsonFile(groups, writer);
-                }
-                else
-                {
-                    Console.Out.WriteLine("Это фаил!!!! ФАИИИЛЛЛ!!!!!!!!!!");
-                }
+            return groups;
+        }
 
-                writer.Close();
+        static List<ContactData> GenerateRandomContacts(int testDataCount)
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            for (int i = 0; i < testDataCount; i++)
+            {
+                contacts.Add(new ContactData(TestBase.GenerateRandomString(20),
+                    TestBase.GenerateRandomString(20),
+                    TestBase.GenerateRandomString(20))
+                {
+                    Address = TestBase.GenerateRandomString(10),
+                    Company = TestBase.GenerateRandomString(10),
+                    Email2 = TestBase.GenerateRandomString(10),
+                    Email3 = TestBase.GenerateRandomString(10)
+                });
             }
+
+            return contacts;
         }
 
         static void WriteGroupsToExcelFile(List<GroupData> groups, string fileName)
@@ -101,6 +150,16 @@ namespace AddressbookTestDataGenerator
         static void WriteGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
         {
             writer.Write(JsonConvert.SerializeObject(groups, Formatting.Indented));
+        }
+
+        static void WriteContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
+        {
+            new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
+        }
+
+        static void WriteContactsToJsonFile(List<ContactData> contacts, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(contacts, Formatting.Indented));
         }
     }
 }
