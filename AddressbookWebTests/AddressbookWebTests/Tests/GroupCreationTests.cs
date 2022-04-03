@@ -6,6 +6,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Excel = Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
 
 namespace AddressbookWebTests
@@ -49,7 +50,7 @@ namespace AddressbookWebTests
 
         public static IEnumerable<GroupData> GroupDataFromXmlFile()
         {
-            return (List<GroupData>) 
+            return (List<GroupData>)
                 new XmlSerializer(typeof(List<GroupData>)).Deserialize(new StreamReader(@"groups.xml"));
         }
 
@@ -59,7 +60,29 @@ namespace AddressbookWebTests
                 File.ReadAllText(@"groups.json"));
         }
 
-        [Test, TestCaseSource("GroupDataFromJsonFile")]
+        public static IEnumerable<GroupData> GroupDataFromExcelFile()
+        {
+            List<GroupData> groups = new List<GroupData>();
+
+            Excel.Application app = new Excel.Application();
+            Excel.Workbook workbook = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlsx"));
+            Excel.Worksheet worksheet = workbook.ActiveSheet;
+            Excel.Range range = worksheet.UsedRange;
+            for (int i = 1; i <= range.Rows.Count; i++)
+            {
+                groups.Add(new GroupData(range.Cells[i, 1])
+                {
+                    Header = range.Cells[i, 2],
+                    Footer = range.Cells[i, 3]
+                });
+            }
+            workbook.Close();
+            app.Quit();
+
+            return groups;
+        }
+
+        [Test, TestCaseSource("GroupDataFromExcelFile")]
         public void GroupCreationTest(GroupData group)
         {
             List<GroupData> oldGroups = app.Groups.GetGroupsList();

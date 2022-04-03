@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using AddressbookWebTests;
 using Newtonsoft.Json;
+using Excel = Microsoft.Office.Interop.Excel;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace AddressbookTestDataGenerator
@@ -17,7 +18,8 @@ namespace AddressbookTestDataGenerator
         static void Main(string[] args)
         {
             int testDataCount = Convert.ToInt32(args[0]);
-            StreamWriter writer = new StreamWriter(args[1]);
+
+            string fileName = args[1];
             string format = args[2];
 
             List<GroupData> groups = new List<GroupData>();
@@ -30,24 +32,55 @@ namespace AddressbookTestDataGenerator
                 });
             }
 
-            if (format == "csv")
+            if (format == "excel")
             {
-                WriteGroupsToCsvFile(groups, writer);
-            }
-            else if (format == "xml")
-            {
-                WriteGroupsToXmlFile(groups, writer);
-            }
-            else if (format == "json")
-            {
-                WriteGroupsToJsonFile(groups, writer);
+                WriteGroupsToExcelFile(groups, fileName);
             }
             else
             {
-                Console.Out.WriteLine("Это фаил!!!! ФАИИИЛЛЛ!!!!!!!!!!");
+                StreamWriter writer = new StreamWriter(fileName);
+                if (format == "csv")
+                {
+                    WriteGroupsToCsvFile(groups, writer);
+                }
+                else if (format == "xml")
+                {
+                    WriteGroupsToXmlFile(groups, writer);
+                }
+                else if (format == "json")
+                {
+                    WriteGroupsToJsonFile(groups, writer);
+                }
+                else
+                {
+                    Console.Out.WriteLine("Это фаил!!!! ФАИИИЛЛЛ!!!!!!!!!!");
+                }
+
+                writer.Close();
+            }
+        }
+
+        static void WriteGroupsToExcelFile(List<GroupData> groups, string fileName)
+        {
+            Excel.Application app = new Excel.Application();
+            Excel.Workbook workbook = app.Workbooks.Add();
+            Excel.Worksheet worksheet = workbook.ActiveSheet;
+
+            int row = 1;
+            foreach (var group in groups)
+            {
+                worksheet.Cells[row, 1] = group.Name;
+                worksheet.Cells[row, 2] = group.Header;
+                worksheet.Cells[row, 3] = group.Footer;
+                row++;
             }
 
-            writer.Close();
+            string fullPath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+            File.Delete(fullPath);
+            workbook.SaveAs(fullPath);
+
+            workbook.Close();
+            app.Quit();
         }
 
         static void WriteGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
