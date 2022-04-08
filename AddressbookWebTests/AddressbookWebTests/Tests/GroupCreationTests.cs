@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -82,7 +83,7 @@ namespace AddressbookWebTests
             return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromExcelFile")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
             List<GroupData> oldGroups = app.Groups.GetGroupsList();
@@ -117,6 +118,22 @@ namespace AddressbookWebTests
             groups.Sort();
             Assert.AreEqual(oldGroups, groups);
 
+        }
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUI = app.Groups.GetGroupsList();
+
+            DateTime end = DateTime.Now;
+            System.Console.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<GroupData> fromDB = GroupData.GetAll();
+
+            end = DateTime.Now;
+            System.Console.WriteLine(end.Subtract(start));
         }
     }
 }
