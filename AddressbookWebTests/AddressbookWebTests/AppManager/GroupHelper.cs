@@ -100,6 +100,17 @@ namespace AddressbookWebTests
             return this;
         }
 
+        public GroupHelper Remove(GroupData groupToRemove)
+        {
+            manager.Navigator.GoToGroupsPage();
+
+            SelectGroup(groupToRemove.Id);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            
+            return this;
+        }
+
         public bool DoesAnyGroupExist()
         {
             return IsElementPresent(By.ClassName("group"));
@@ -142,6 +153,12 @@ namespace AddressbookWebTests
         public GroupHelper SelectGroup(int groupIndex)
         {
             driver.FindElement(By.XPath($"//div[@id='content']/form/span[{groupIndex + 1}]/input")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectGroup(string id)
+        {
+            driver.FindElement(By.XPath($"(//input[@name='selected[]' and @value='{id}'])")).Click();
             return this;
         }
 

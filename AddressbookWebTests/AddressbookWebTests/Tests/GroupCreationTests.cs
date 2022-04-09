@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace AddressbookWebTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -86,13 +86,13 @@ namespace AddressbookWebTests
         [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
-            List<GroupData> oldGroups = app.Groups.GetGroupsList();
+            List<GroupData> oldGroups = GroupData.GetAll();
 
             app.Groups.Create(group);
 
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupsCount());
 
-            List<GroupData> groups = app.Groups.GetGroupsList();
+            List<GroupData> groups = GroupData.GetAll();
             oldGroups.Add(group);
             oldGroups.Sort();
             groups.Sort();
@@ -107,13 +107,13 @@ namespace AddressbookWebTests
             group.Header = "";
             group.Footer = "";
 
-            List<GroupData> oldGroups = app.Groups.GetGroupsList();
+            List<GroupData> oldGroups = GroupData.GetAll();
 
             app.Groups.Create(group);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupsCount());
 
-            List<GroupData> groups = app.Groups.GetGroupsList();
+            List<GroupData> groups = GroupData.GetAll();
             oldGroups.Sort();
             groups.Sort();
             Assert.AreEqual(oldGroups, groups);
