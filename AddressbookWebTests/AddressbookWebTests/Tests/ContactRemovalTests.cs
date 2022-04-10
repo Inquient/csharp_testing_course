@@ -8,21 +8,22 @@ using NUnit.Framework;
 namespace AddressbookWebTests
 {
     [TestFixture]
-    public class ContactRemovalTests : AuthTestBase
+    public class ContactRemovalTests : ContactTestBase
     {
         [Test]
         public void ContactRemovalTest()
         {
             app.Contacts.CreateContactIfDoesNotExists();
 
-            List<ContactData> oldContacts = app.Contacts.GetContactsList();
+            List<ContactData> oldContacts = ContactData.GetAll();
+            ContactData toBeRemoved = oldContacts[0];
 
-            app.Contacts.Remove(0);
+            app.Contacts.Remove(toBeRemoved);
 
             Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactsCount());
 
-            List<ContactData> newContacts = app.Contacts.GetContactsList();
-            oldContacts.RemoveAt(0);
+            List<ContactData> newContacts = ContactData.GetAll();
+            oldContacts.Remove(toBeRemoved);
             Assert.AreEqual(oldContacts, newContacts);
         }
 
@@ -35,7 +36,7 @@ namespace AddressbookWebTests
 
             Assert.AreEqual(0, app.Contacts.GetContactsCount());
 
-            List<ContactData> newContacts = app.Contacts.GetContactsList();
+            List<ContactData> newContacts = ContactData.GetAll();
             Assert.IsEmpty(newContacts);
         }
     }

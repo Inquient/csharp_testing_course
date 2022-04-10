@@ -89,6 +89,19 @@ namespace AddressbookWebTests
             return this;
         }
 
+        public GroupHelper Modify(GroupData newGroup)
+        {
+            manager.Navigator.GoToGroupsPage();
+
+            SelectGroup(newGroup.Id);
+            InitGroupModification();
+            FillGroupForm(newGroup);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+
+            return this;
+        }
+
         public GroupHelper Remove(int index)
         {
             manager.Navigator.GoToGroupsPage();

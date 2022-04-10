@@ -30,7 +30,11 @@ namespace AddressbookWebTests
                     var e = element.FindElements(By.CssSelector("td")); // Внутри элемента entry ищем все элементы td
                     var firstName = e[2].Text;
                     var lastName = e[1].Text;
-                    contactsCache.Add(new ContactData(firstName, lastName));
+                    string allEmails = e[4].Text;
+                    contactsCache.Add(new ContactData(firstName, lastName)
+                    {
+                        AllEmails = allEmails
+                    });
                 }
             }
             
@@ -85,9 +89,28 @@ namespace AddressbookWebTests
             return this;
         }
 
+        public ContactHelper Modify(ContactData newData)
+        {
+            InitContactModification(newData.Id);
+            FillContactForm(newData);
+            SubmitContactModification();
+            ReturnToHomePage();
+
+            return this;
+        }
+
         public ContactHelper Remove(int index)
         {
             SelectContact(index);
+            RemoveContact();
+            WaitForContactRemoved();
+
+            return this;
+        }
+
+        public ContactHelper Remove(ContactData contact)
+        {
+            SelectContact(contact.Id);
             RemoveContact();
             WaitForContactRemoved();
 
@@ -131,6 +154,12 @@ namespace AddressbookWebTests
             return this;
         }
 
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.XPath($"(//input[@name='selected[]' and @value='{id}'])")).Click();
+            return this;
+        }
+
         public ContactHelper SelectAllContacts()
         {
             driver.FindElement(By.Id("MassCB")).Click();
@@ -155,6 +184,12 @@ namespace AddressbookWebTests
             driver.FindElements(By.Name("entry"))[index]
                 .FindElements(By.TagName("td"))[7]
                 .FindElement(By.TagName("a")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification(string id)
+        {
+            driver.FindElement(By.XPath("//a[@href='edit.php?id=" + id + "']")).Click();
             return this;
         }
 

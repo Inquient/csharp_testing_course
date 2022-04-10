@@ -15,28 +15,27 @@ namespace AddressbookWebTests
         {
             app.Groups.CreateGroupIfDoesNotExists("groupToModify");
 
-            GroupData newGroupData = new GroupData("ModifiedGroupName");
-            newGroupData.Header = null;
-            newGroupData.Footer = null;
+            List<GroupData> oldGroups = GroupData.GetAll();
 
-            List<GroupData> oldGroups = app.Groups.GetGroupsList();
-            GroupData oldData = oldGroups[0];
+            GroupData toBeModified = oldGroups[0];
+            toBeModified.Name = "GroupWasModified";
+            toBeModified.Header = null;
+            toBeModified.Footer = null;
 
-            app.Groups.Modify(0, newGroupData);
+            app.Groups.Modify(toBeModified);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupsCount());
 
-            List<GroupData> groups = app.Groups.GetGroupsList();
-            oldGroups[0].Name = newGroupData.Name;
+            List<GroupData> groups = GroupData.GetAll();
             oldGroups.Sort();
             groups.Sort();
             Assert.AreEqual(oldGroups, groups);
 
             foreach(GroupData group in groups)
             {
-                if(group.Id == oldData.Id)
+                if(group.Id == toBeModified.Id)
                 {
-                    Assert.AreEqual(newGroupData.Name, group.Name);
+                    Assert.AreEqual(toBeModified.Name, group.Name);
                 }
             }
         }

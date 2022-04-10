@@ -24,7 +24,7 @@ namespace AddressbookWebTests
 
             List<GroupData> groups = GroupData.GetAll();
             
-            oldGroups.RemoveAt(0);
+            oldGroups.Remove(toBeRemoved);
             Assert.AreEqual(oldGroups, groups);
 
             // Проверка, что удалённой группы больше нет в списке

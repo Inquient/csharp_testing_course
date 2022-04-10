@@ -50,6 +50,8 @@ namespace AddressbookWebTests
         public string HomePhone { get; set; }
         public string WorkPhone { get; set; }
         public string Fax { get; set; }
+
+        [Column(Name = "email")]
         public string Email { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
@@ -146,6 +148,14 @@ namespace AddressbookWebTests
             return s + "\n";
         }
 
+        public static List<ContactData> GetAll()
+        {
+            using (AddresBookDB db = new AddresBookDB())
+            {
+                return (from c in db.Contacts select c).ToList();
+            }
+        }
+
         public bool Equals(ContactData other)
         {
             if (object.ReferenceEquals(other, null))
@@ -166,9 +176,8 @@ namespace AddressbookWebTests
 
         public override string ToString()
         {
-            return "FirstName = " + FirstName 
-                    + "\nLastName = " + LastName
-                    + "\nEmail = " + Email;
+            return "FirstName = " + FirstName
+                                  + "\nLastName = " + LastName;
         }
 
         public int CompareTo(ContactData other)
