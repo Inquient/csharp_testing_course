@@ -123,17 +123,10 @@ namespace AddressbookWebTests
         [Test]
         public void TestDBConnectivity()
         {
-            DateTime start = DateTime.Now;
-            List<GroupData> fromUI = app.Groups.GetGroupsList();
-
-            DateTime end = DateTime.Now;
-            System.Console.WriteLine(end.Subtract(start));
-
-            start = DateTime.Now;
-            List<GroupData> fromDB = GroupData.GetAll();
-
-            end = DateTime.Now;
-            System.Console.WriteLine(end.Subtract(start));
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                Console.Out.WriteLine(contact);
+            }
         }
     }
 }

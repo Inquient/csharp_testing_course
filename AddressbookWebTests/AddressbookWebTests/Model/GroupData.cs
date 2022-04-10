@@ -46,6 +46,16 @@ namespace AddressbookWebTests
             }
         }
 
+        public List<ContactData> GetContacts()
+        {
+            using (AddresBookDB db = new AddresBookDB())
+            {
+                return (from c in db.Contacts 
+                        from gcr in db.GCR.Where(p => p.GroupId == this.Id && p.ContactId == c.Id)
+                        select c).Distinct().ToList();
+            }
+        }
+
         //Позволяет проверить, равны ли два объекта
         public bool Equals(GroupData other)
         {
