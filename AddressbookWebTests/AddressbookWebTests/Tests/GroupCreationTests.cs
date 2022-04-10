@@ -125,7 +125,7 @@ namespace AddressbookWebTests
         {
             foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
             {
-                Console.Out.WriteLine(contact);
+                Console.Out.WriteLine(contact.Deprecated);
             }
         }
     }
