@@ -27,5 +27,26 @@ namespace AddressbookWebTests
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
         }
+
+        [Test]
+        public void RemoveContactFromGroupTest()
+        {
+            // arrange
+            List<GroupData> allGroups = GroupData.GetAll();
+            GroupData group = allGroups.First(g => g.GetContacts().Count > 0);
+
+            List<ContactData> contactsOfGroup = group.GetContacts();
+            ContactData contactToRemove = contactsOfGroup[0];
+
+            // act
+            app.Contacts.RemoveContactFromGroup(contactToRemove, group);
+
+            // assert
+            List<ContactData> newContactsOfGroup = group.GetContacts();
+            contactsOfGroup.Remove(contactToRemove);
+            contactsOfGroup.Sort();
+            newContactsOfGroup.Sort();
+            Assert.AreEqual(contactsOfGroup, newContactsOfGroup);
+        }
     }
 }

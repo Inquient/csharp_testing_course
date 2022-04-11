@@ -364,7 +364,7 @@ namespace AddressbookWebTests
             return Int32.Parse(m.Value);
         }
 
-        public void AddContactToGroup(ContactData contact, GroupData @group)
+        public void AddContactToGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GoToHomePage();
             ClearGroupFilter();
@@ -373,6 +373,24 @@ namespace AddressbookWebTests
             CommitAddingContactToGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectGroup(group.Name);
+            SelectContact(contact.Id);
+            CommitRemoveContactFromGroup();
+        }
+
+        private void CommitRemoveContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        private void SelectGroup(string groupName)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(groupName);
         }
 
         public void CommitAddingContactToGroup()
