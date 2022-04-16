@@ -70,6 +70,7 @@ namespace AddressbookWebTests
 
         public void CreateGroupIfDoesNotExists(string groupName = "groupToRemove")
         {
+            manager.Navigator.GoToGroupsPage();
             if (!DoesAnyGroupExist())
             {
                 Create(new GroupData(groupName));

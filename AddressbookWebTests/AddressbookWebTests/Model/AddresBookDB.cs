@@ -25,5 +25,7 @@ namespace AddressbookWebTests
         {
             get { return GetTable<GroupContactRelation>(); }
         }
+
+
     }
 }
