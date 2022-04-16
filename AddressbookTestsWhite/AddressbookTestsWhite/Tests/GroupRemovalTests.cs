@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace AddressbookTestsWhite.Tests
+namespace AddressbookTestsWhite
 {
     [TestFixture]
     class GroupRemovalTests : TestBase
