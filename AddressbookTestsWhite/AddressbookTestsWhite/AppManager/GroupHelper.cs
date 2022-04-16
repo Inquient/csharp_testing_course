@@ -40,7 +40,62 @@ namespace AddressbookTestsWhite
             return groups;
         }
 
-        public void Add(GroupData newGroup)
+        public int GetGroupsCount()
+        {
+            Window dialog = OpenGroupsDialog();
+            int count = dialog.Get<Tree>("uxAddressTreeView").Nodes[0].Nodes.Count();
+            CloseGroupsDialog(dialog);
+            return count;
+        }
+
+        public void CreateGroupIfDoesNotExists()
+        {
+            if (GetGroupsCount() == 1)
+            {
+                CreateGroup(new GroupData("newGroupName"));
+            }
+        }
+
+        public Window SelectGroupByName(GroupData group)
+        {
+            List<GroupData> groups = new List<GroupData>();
+            Window dialog = OpenGroupsDialog();
+            Tree tree = dialog.Get<Tree>("uxAddressTreeView");
+            TreeNode root = tree.Nodes[0];
+            foreach (TreeNode node in root.Nodes)
+            {
+                if (node.Text == group.Name)
+                {
+                    node.Click();
+                    return dialog;
+                }
+            }
+            root.Nodes[0].Click();
+            return dialog;
+        }
+
+        public void RemoveGroup(GroupData groupToRemove)
+        {
+            Window dialog = SelectGroupByName(groupToRemove);
+            dialog.Get<Button>("uxDeleteAddressButton").Click();
+
+            Window deleteDialog = dialog.ModalWindow("Delete group");
+            deleteDialog.Get<Button>("uxOKAddressButton").Click();
+            CloseGroupsDialog(dialog);
+        }
+
+        public void RemoveLastGroup(GroupData groupToRemove)
+        {
+            Window dialog = SelectGroupByName(groupToRemove);
+            dialog.Get<Button>("uxDeleteAddressButton").Click();
+
+            Window deleteDialog = dialog.MessageBox("Information");
+            Button okButton = (Button) deleteDialog.Get(SearchCriteria.ByControlType(ControlType.Button));
+            okButton.Click();
+            CloseGroupsDialog(dialog);
+        }
+
+        public void CreateGroup(GroupData newGroup)
         {
             Window dialog = OpenGroupsDialog();
 

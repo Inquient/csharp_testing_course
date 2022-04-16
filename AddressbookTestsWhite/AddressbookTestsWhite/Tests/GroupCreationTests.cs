@@ -9,14 +9,17 @@ namespace AddressbookTestsWhite
         [Test]
         public void TestGroupCreation()
         {
+            // arrange
             List<GroupData> oldGroups = app.Groups.GetGroupList();
             GroupData newGroup = new GroupData()
             {
                 Name = "white"
             };
 
-            app.Groups.Add(newGroup);
+            // act
+            app.Groups.CreateGroup(newGroup);
 
+            // assert
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(newGroup);
             oldGroups.Sort();
