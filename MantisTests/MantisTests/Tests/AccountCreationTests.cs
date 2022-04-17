@@ -37,6 +37,9 @@ namespace MantisTests
                 Email = "testuser@localhost.localdomail"
             };
 
+            app.James.Delete(account);
+            app.James.Add(account);
+
             app.Registration.Register(account);
         }
     }
