@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using OpaqueMail;
+
+namespace MantisTests
+{
+    public class MailHelper : HelperBase
+    {
+        public MailHelper(ApplicationManager manager) : base(manager)
+        {
+        }
+
+        public string GetLastMail(AccountData account)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                Pop3Client pop3 = new Pop3Client("localhost", 110, account.Name, account.Password, false);
+                pop3.Connect();
+                pop3.Authenticate();
+
+                if (pop3.GetMessageCount() > 0)
+                {
+                    MailMessage message = pop3.GetMessage(1);
+                    string messageText = message.Body;
+                    pop3.DeleteMessage(1);
+                    return messageText;
+                }
+                else
+                {
+                    Thread.Sleep(3000);
+                }
+            }
+            return null;
+        }
+    }
+}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 
@@ -21,7 +22,29 @@ namespace MantisTests
             OpenRegistrationForm();
             FillRegistrationForm(account);
             SubmitRegistration();
+            string url = GetConfirmationUrl(account);
+            FillPasswordForm(url, account);
+            SubmitPasswordForm();
+        }
 
+        private string GetConfirmationUrl(AccountData account)
+        {
+            string message = manager.Mail.GetLastMail(account);
+            var match = Regex.Match(message, @"http://\S*");
+            return match.Value;
+        }
+
+        private void FillPasswordForm(string url, AccountData account)
+        {
+            driver.Url = url;
+            driver.FindElement(By.Name("realname")).SendKeys(account.Name);
+            driver.FindElement(By.Name("password")).SendKeys(account.Password);
+            driver.FindElement(By.Name("password_confirm")).SendKeys(account.Password);
+        }
+
+        private void SubmitPasswordForm()
+        {
+            driver.FindElement(By.ClassName("width-100")).Click();
         }
 
         private void SubmitRegistration()
