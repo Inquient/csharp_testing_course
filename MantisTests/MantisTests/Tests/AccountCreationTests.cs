@@ -22,7 +22,7 @@ namespace MantisTests
         }
 
         [TearDown]
-        public void RestoreCongig()
+        public void RestoreConfig()
         {
             app.Ftp.RestoreBackupFile("/config_inc.php");
         }
