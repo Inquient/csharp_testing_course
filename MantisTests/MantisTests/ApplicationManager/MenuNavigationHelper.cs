@@ -8,14 +8,22 @@ namespace MantisTests
 {
     public class MenuNavigationHelper : HelperBase
     {
-        public static string ManagementOverviewPage = "http://localhost/mantisbt-2.25.3/manage_overview_page.php";
-        public static string ProjectManagementTab = "http://localhost/mantisbt-2.25.3/manage_proj_page.php";
-        public static string ProjectCreationPage = "http://localhost/mantisbt-2.25.3/manage_proj_create_page.php";
+        public static string ManagementOverviewPage;
+        public static string ProjectManagementTab;
+        public static string ProjectCreationPage;
 
-        public static string LoginPage = "http://localhost/mantisbt-2.25.3/login_page.php";
+        public static string LoginPage;
 
-        public MenuNavigationHelper(ApplicationManager manager) : base(manager)
+        private string BaseUrl;
+
+        public MenuNavigationHelper(ApplicationManager manager, string baseUrl) : base(manager)
         {
+            this.BaseUrl = baseUrl;
+            ManagementOverviewPage = baseUrl + "/manage_overview_page.php";
+            ProjectManagementTab = baseUrl + "/manage_proj_page.php";
+            ProjectCreationPage = baseUrl + "/manage_proj_create_page.php";
+
+            LoginPage = baseUrl + "/login_page.php";
         }
 
         public void GoToManagementOverviewPage()

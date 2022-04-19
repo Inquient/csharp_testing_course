@@ -37,7 +37,7 @@ namespace MantisTests
             Mail = new MailHelper(this);
             Auth = new LoginHelper(this);
             Projects = new ProjectManagementHelper(this);
-            Navigation = new MenuNavigationHelper(this);
+            Navigation = new MenuNavigationHelper(this, baseURL);
             Admin = new AdminHelper(this, baseURL);
             Api = new ApiHelper(this);
         }
