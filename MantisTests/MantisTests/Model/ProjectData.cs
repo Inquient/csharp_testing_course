@@ -9,8 +9,9 @@ namespace MantisTests
     public class ProjectData : IComparable<ProjectData>, IEquatable<ProjectData>
     {
         public string Name { get; set; }
-
         public string Description { get; set; }
+        public string Id { get; set; }
+        
         public int CompareTo(ProjectData other)
         {
             if (object.ReferenceEquals(other, null))

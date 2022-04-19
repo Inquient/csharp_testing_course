@@ -22,6 +22,7 @@ namespace MantisTests
         public ProjectManagementHelper Projects { get; set; }
         public MenuNavigationHelper Navigation { get; set; }
         public AdminHelper Admin { get; set; }
+        public ApiHelper Api { get; set; }
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
@@ -38,6 +39,7 @@ namespace MantisTests
             Projects = new ProjectManagementHelper(this);
             Navigation = new MenuNavigationHelper(this);
             Admin = new AdminHelper(this, baseURL);
+            Api = new ApiHelper(this);
         }
 
         ~ApplicationManager()

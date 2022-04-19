@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="config_inc.php">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
