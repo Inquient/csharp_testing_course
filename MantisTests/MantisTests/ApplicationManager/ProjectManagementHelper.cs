@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using ServiceReference;
 
 namespace MantisTests
 {
@@ -14,7 +15,7 @@ namespace MantisTests
         {
         }
 
-        internal void CreateProjectIfDoesNotExists()
+        public void CreateProjectIfDoesNotExists()
         {
             if (GetProjectsCount() == 0)
             {
@@ -84,6 +85,66 @@ namespace MantisTests
             driver.FindElement(By.XPath("//input[@value='Удалить проект']")).Click();
             Thread.Sleep(1000);
             driver.FindElement(By.XPath("//input[@value='Удалить проект']")).Click();
+        }
+
+        public async Task<List<ProjectData>> GetProjectsListWithApi(AccountData account)
+        {
+            List<ProjectData> projectDatas = new List<ProjectData>();
+            MantisConnectPortTypeClient client = new MantisConnectPortTypeClient();
+
+            var projects = await client.mc_projects_get_user_accessibleAsync(account.Name, account.Password);
+            foreach (var project in projects)
+            {
+                projectDatas.Add(new ProjectData()
+                {
+                    Name = project.name,
+                    Description = project.description,
+                    Id = project.id
+                });
+            }
+
+            return projectDatas;
+        }
+
+        public async Task<int> GetProjectsCountWithApi(AccountData account)
+        {
+            MantisConnectPortTypeClient client = new MantisConnectPortTypeClient();
+            var projects = await client.mc_projects_get_user_accessibleAsync(account.Name, account.Password);
+
+            return projects.Length;
+        }
+
+        public async Task CreateProjectIfDoesNotExistsWithApi(AccountData account)
+        {
+            var projectsCount = await GetProjectsCountWithApi(account);
+            if (projectsCount == 0)
+            {
+                ProjectData project = new ProjectData()
+                {
+                    Name = "ProjectToRemove",
+                    Description = "Some description"
+                };
+
+                await CreateProjectWithApi(account, project);
+            }
+        }
+
+        public async Task CreateProjectWithApi(AccountData account, ProjectData project)
+        {
+            MantisConnectPortTypeClient client = new MantisConnectPortTypeClient();
+
+            ServiceReference.ProjectData projectToCreate = new ServiceReference.ProjectData();
+            projectToCreate.name = project.Name;
+            projectToCreate.description = project.Description;
+
+            await client.mc_project_addAsync(account.Name, account.Password, projectToCreate);
+        }
+
+        public async Task RemoveProjectWithApi(AccountData account, ProjectData project)
+        {
+            MantisConnectPortTypeClient client = new MantisConnectPortTypeClient();
+
+            await client.mc_project_deleteAsync(account.Name, account.Password, project.Id);
         }
     }
 }
