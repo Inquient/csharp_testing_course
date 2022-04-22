@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
-using ServiceReference;
+using MantisWebService;
 
 namespace MantisTests
 {
@@ -133,7 +133,7 @@ namespace MantisTests
         {
             MantisConnectPortTypeClient client = new MantisConnectPortTypeClient();
 
-            ServiceReference.ProjectData projectToCreate = new ServiceReference.ProjectData();
+            MantisWebService.ProjectData projectToCreate = new MantisWebService.ProjectData();
             projectToCreate.name = project.Name;
             projectToCreate.description = project.Description;
 
