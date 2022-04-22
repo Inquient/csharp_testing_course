@@ -1,14 +1,14 @@
 {
   "ExtendedData": {
     "inputs": [
-      "../../mantisconnect.wsdl"
+      "http://localhost/mantisbt-2.25.3/api/soap/mantisconnect.php?wsdl"
     ],
     "collectionTypes": [
       "System.Array",
       "System.Collections.Generic.Dictionary`2"
     ],
     "namespaceMappings": [
-      "*, ServiceReference"
+      "*, MantisWebService"
     ],
     "targetFramework": "net48",
     "typeReuseMode": "None"

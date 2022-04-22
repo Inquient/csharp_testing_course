@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ServiceReference;
+using MantisWebService;
 
 namespace MantisTests
 {
@@ -17,11 +17,11 @@ namespace MantisTests
         public void CreateNewIssue(AccountData account, ProjectData project, IssueData issueData)
         {
 	        MantisConnectPortTypeClient client = new MantisConnectPortTypeClient();
-            ServiceReference.IssueData issue = new ServiceReference.IssueData();
+            MantisWebService.IssueData issue = new MantisWebService.IssueData();
 	        issue.summary = issueData.Summary;
 	        issue.description = issueData.Description;
 	        issue.category = issueData.Category;
-	        issue.project = new ServiceReference.ObjectRef();
+	        issue.project = new MantisWebService.ObjectRef();
 	        issue.project.id = project.Id;
 	        client.mc_issue_addAsync(account.Name, account.Password, issue);
         }
